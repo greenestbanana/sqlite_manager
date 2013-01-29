@@ -1,0 +1,26 @@
+
+hello.exe : bin obj main.o func.o sqlite3.o
+	g++ obj\main.o obj\func.o obj\sqlite3.o -o bin\hello.exe
+	
+main.o : src\main.cpp obj
+	g++ -c src\main.cpp -o obj\main.o
+	
+func.o : src\func.cpp obj
+	g++ -c src\func.cpp -o obj\func.o
+	
+sqlite3.o : src\sqlite\sqlite3.c obj
+	gcc -c src\sqlite\sqlite3.c -o obj\sqlite3.o
+	
+bin :
+	mkdir bin
+	
+obj : 
+	mkdir obj
+	
+.PHONY : clean
+clean : 
+	del obj\*.o
+	
+.PHONY : cleanall
+cleanall : clean
+	del bin\*.exe
